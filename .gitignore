@@ -4,5 +4,5 @@
 *.iml
 log/
 logs/
-target/
+/target/
 *.bak
