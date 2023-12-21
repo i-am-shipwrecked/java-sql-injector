@@ -1,8 +1,9 @@
 package steps;
 
+import io.cucumber.java.After;
+import io.cucumber.java.Before;
 import managers.DriverManager;
-import org.junit.After;
-import org.junit.Before;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
@@ -14,7 +15,6 @@ public class Hooks {
     public void setup() {
         driver = DriverManager.getDriver();
     }
-
     @After
     public void tearDown() {
         quitDriver();

@@ -5,6 +5,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import managers.DriverManager;
+import org.junit.After;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -13,6 +14,7 @@ import org.openqa.selenium.WebElement;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Properties;
+
 
 
 public class SqlInjectorSteps {
@@ -35,14 +37,10 @@ public class SqlInjectorSteps {
 
     @When("User tries to type in a SQL Injection {string} into input field")
     public void userTriesToTypeInASQLInjectionIntoInputField(String sqlInjection) {
-        List<WebElement> inputElements = driver.findElements(By.tagName("input"));
+        WebElement inputElement = driver.findElement(By.cssSelector("input"));
+        inputElement.sendKeys(sqlInjection);
 
-        for (WebElement inputElement : inputElements) {
-            inputElement.sendKeys(sqlInjection);
-        }
-
-        WebElement formElement = driver.findElement(By.tagName("form"));
-        formElement.submit();
+        inputElement.sendKeys(sqlInjection, Keys.RETURN);
     }
 
     @And("User clicks on Enter button")

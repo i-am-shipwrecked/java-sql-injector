@@ -46,7 +46,8 @@ public class DriverManager {
     public static void quitDriver() {
         if (driver != null) {
             driver.quit();
-            driver = null; // установка в null, чтобы можно было создать новый экземпляр при следующем вызове getDriver()
+            driver = null;
         }
     }
+
 }
