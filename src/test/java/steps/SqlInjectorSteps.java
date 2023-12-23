@@ -7,19 +7,24 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import managers.DriverManager;
 import org.apache.logging.log4j.Logger;
-import org.junit.After;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import utils.PageFactory;
+import utils.Waiter;
 
 import java.io.InputStream;
+import java.time.Duration;
 import java.util.Properties;
 
 
 public class SqlInjectorSteps {
     private WebDriver driver = DriverManager.getDriver();
     private static final Logger LOGGER = LoggerConfigurator.getLogger();
+    PageFactory pageFactory = new PageFactory(driver);
+    Waiter waiter = new Waiter(driver);
+
+    private final int TIMEOUT_IN_SECONDS = 1000;
 
     @Given("User is on the page, which you can insert into sql_injector.properties")
     public void userIsOnThePageWhichYouCanInsertIntoSql_injectorProperties() {
@@ -39,7 +44,22 @@ public class SqlInjectorSteps {
 
     @When("User tries to type in a SQL Injection {string} into input field")
     public void userTriesToTypeInASQLInjectionIntoInputField(String sqlInjection) {
-        WebElement inputElement = driver.findElement(By.cssSelector("input"));
+        WebElement inputElement;
+
+        try {
+            inputElement = driver.findElement(By.cssSelector("input"));
+        } catch (NoSuchElementException e) {
+            LOGGER.info("Input field not found. Scrolling down to find it.");
+            pageFactory.scrollDownToFindInput();
+
+            inputElement = waiter.waitElementToBePresenceOnThePageByCssSelector("input");
+
+            if (inputElement == null) {
+                LOGGER.error("Input field not found even after scrolling. Breaking the test.");
+                throw new NoSuchElementException("Input field not found after scrolling");
+            }
+        }
+
         inputElement.sendKeys(sqlInjection);
         LOGGER.info("Trying to break db with " + sqlInjection);
         inputElement.sendKeys(sqlInjection, Keys.RETURN);
@@ -53,5 +73,4 @@ public class SqlInjectorSteps {
     @Then("Verify that your database is not broken =)")
     public void nothingHappens() {
     }
-
 }
