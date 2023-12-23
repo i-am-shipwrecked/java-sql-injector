@@ -24,11 +24,10 @@ public class SqlInjectorSteps {
     PageFactory pageFactory = new PageFactory(driver);
     Waiter waiter = new Waiter(driver);
 
-    private final int TIMEOUT_IN_SECONDS = 1000;
-
     @Given("User is on the page, which you can insert into sql_injector.properties")
     public void userIsOnThePageWhichYouCanInsertIntoSql_injectorProperties() {
     }
+
     @Given("User choose the page where he wants to start SQL injector tests")
     public void userChooseThePageWhereHeWantsToStartSQLInjectorTests() {
         Properties properties = new Properties();
