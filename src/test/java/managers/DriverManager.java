@@ -1,6 +1,5 @@
 package managers;
 
-import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -12,9 +11,7 @@ import java.util.Properties;
 public class DriverManager {
     private static WebDriver driver;
 
-    private DriverManager() {
-        // приватный конструктор, чтобы предотвратить создание экземпляров извне
-    }
+    private DriverManager() {}
 
     public static WebDriver getDriver() {
         if (driver == null) {
