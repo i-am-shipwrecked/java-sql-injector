@@ -22,7 +22,7 @@ public class SqlInjectorSteps {
     private WebDriver driver = DriverManager.getDriver();
     private static final Logger LOGGER = LoggerConfigurator.getLogger();
     PageFactory pageFactory = new PageFactory(driver);
-    Waiter waiter = new Waiter(driver);
+    Waiter waiter = Waiter.getInstance();
 
     @Given("User is on the page, which you can insert into sql_injector.properties")
     public void userIsOnThePageWhichYouCanInsertIntoSql_injectorProperties() {
