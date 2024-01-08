@@ -1,6 +1,6 @@
 package runners;
 
-import config.SpringRunnerConfig;
+import config.SpringRunnerConfigurator;
 import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
 import io.cucumber.picocontainer.PicoFactory;
@@ -16,7 +16,7 @@ import org.springframework.test.context.ContextConfiguration;
         objectFactory = PicoFactory.class
 )
 @SpringBootTest
-@ContextConfiguration(classes = SpringRunnerConfig.class)
+@ContextConfiguration(classes = SpringRunnerConfigurator.class)
 
 public class SpringRunner {
 }

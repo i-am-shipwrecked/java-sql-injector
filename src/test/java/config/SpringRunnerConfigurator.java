@@ -5,6 +5,6 @@ import org.springframework.context.annotation.ComponentScan;
 
 @Configuration
 @ComponentScan(basePackages = "src/test/java/features")
-public class SpringRunnerConfig {
+public class SpringRunnerConfigurator {
 }
 
