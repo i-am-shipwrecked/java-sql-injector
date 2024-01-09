@@ -3,7 +3,6 @@ package managers;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import utils.TestContext;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,8 +10,6 @@ import java.util.Properties;
 
 public class DriverManager {
     private static WebDriver driver;
-    private static TestContext testContext = new TestContext();
-
     private DriverManager() {}
 
     public static WebDriver getDriver() {
@@ -34,7 +31,6 @@ public class DriverManager {
         if (browser.equalsIgnoreCase("chrome")) {
             System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver119.exe");
             driver = new ChromeDriver();
-            testContext.setContext("driver", driver);
         } else if (browser.equalsIgnoreCase("firefox")) {
             System.setProperty("webdriver.gecko.driver", "src/test/resources/geckodriver.exe");
             driver = new FirefoxDriver();
@@ -48,7 +44,6 @@ public class DriverManager {
     public static void quitDriver() {
         if (driver != null) {
             driver.quit();
-            driver.close();
             driver = null;
         }
     }
