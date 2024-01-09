@@ -4,14 +4,18 @@
         <Console name="Console" target="SYSTEM_OUT">
             <PatternLayout pattern="%d %p [%t] %c{1} [%L] - %m%n"/>
         </Console>
-        <File name="File" fileName="logs/test-execution.log">
+        <RollingFile name="RollingFile"
+                     filePattern="logs/%d{yyyy-MM-dd}-app-sql-injection.log">
             <PatternLayout pattern="%d %p [%t] %c{1} [%L] - %m%n"/>
-        </File>
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+            </Policies>
+        </RollingFile>
     </Appenders>
     <Loggers>
-        <Root level="INFO">
+        <Root level="DEBUG">
             <AppenderRef ref="Console"/>
-            <AppenderRef ref="File"/>
+            <AppenderRef ref="RollingFile"/>
         </Root>
         <Logger name="io.netty" level="WARN"/>
     </Loggers>

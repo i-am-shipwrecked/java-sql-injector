@@ -1,13 +1,17 @@
 package steps;
 
 import config.LoggerConfigurator;
+import io.cucumber.java.After;
+import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import managers.DriverManager;
 import org.apache.logging.log4j.Logger;
+
 import org.openqa.selenium.*;
+import utils.Hooks;
 import utils.PageFactory;
 import utils.Waiter;
 
@@ -20,6 +24,20 @@ public class SqlInjectorSteps {
     private static final Logger LOGGER = LoggerConfigurator.getLogger();
     PageFactory pageFactory = new PageFactory(driver);
     Waiter waiter = Waiter.getInstance();
+
+    @Before
+    public void setup() {
+        driver = DriverManager.getDriver();
+    }
+
+    @After
+    public void tearDown() {
+        try {
+            DriverManager.quitDriver();
+        } catch (Exception e) {
+            System.out.println("браузер не закрылся");
+        }
+    }
 
     @Given("User is on the page, which you can insert into sql_injector.properties")
     public void userIsOnThePageWhichYouCanInsertIntoSql_injectorProperties() {

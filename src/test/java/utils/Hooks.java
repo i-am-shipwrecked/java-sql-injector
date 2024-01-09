@@ -6,18 +6,25 @@ import managers.DriverManager;
 
 import org.openqa.selenium.WebDriver;
 
-import static managers.DriverManager.quitDriver;
 
 public class Hooks {
     private WebDriver driver;
+    private static TestContext testContext = new TestContext();
 
     @Before
     public void setup() {
+        System.out.println("Hello World !!!!!!!!!!");
         driver = DriverManager.getDriver();
     }
 
-    @After
+   @After
     public void tearDown() {
-        quitDriver();
+       System.out.println("Hello World !!!!!!!!!!");
+        driver = (WebDriver) testContext.getContext("driver");
+        try {
+            DriverManager.quitDriver();
+        } catch (Exception e) {
+            System.out.println("браузер не закрылся");
+        }
     }
 }
