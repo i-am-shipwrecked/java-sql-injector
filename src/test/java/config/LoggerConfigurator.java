@@ -8,6 +8,10 @@ import java.io.File;
 public class LoggerConfigurator {
     static Logger LOGGER = LogManager.getLogger(LoggerConfigurator.class);
 
+    static {
+        configureLog4j();
+    }
+
     public static void configureLog4j() {
         System.setProperty("log4j.configurationFile", "log4j2.xml");
         File logDirectory = new File("logs");

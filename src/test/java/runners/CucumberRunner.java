@@ -12,11 +12,7 @@ import org.junit.runner.RunWith;
         tags = "@Run",
         features = "src/test/java/features",
         glue = "steps",
-        objectFactory = PicoFactory.class,
-        plugin = {
-                "pretty", "html:target/serenity-reports/serenity-html-report",
-                "json:target/serenity-reports/SerenityTestReport.json",
-                "rerun:target/serenity-reports/rerun.txt"}
+        objectFactory = PicoFactory.class
 )
 public class CucumberRunner {
 }
