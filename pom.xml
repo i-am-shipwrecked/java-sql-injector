@@ -183,7 +183,18 @@
             <version>4.13.2</version>
             <scope>compile</scope>
         </dependency>
-
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>7.8.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>7.8.0</version>
+            <scope>compile</scope>
+        </dependency>
         <!--        <dependency>-->
         <!--            <groupId>org.springframework.boot</groupId>-->
         <!--            <artifactId>spring-boot-starter</artifactId>-->
@@ -200,7 +211,6 @@
         <!--            <artifactId>spring-context</artifactId>-->
         <!--            <version>6.1.2</version>-->
         <!--        </dependency>-->
-
     </dependencies>
 
 
