@@ -1,10 +1,8 @@
 package org.injector.tests;
 
-import io.cucumber.java.Before;
 import org.injector.managers.DriverManager;
 import org.injector.utils.PageFactory;
 import org.injector.utils.Waiter;
-import org.junit.After;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
