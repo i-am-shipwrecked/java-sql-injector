@@ -23,7 +23,6 @@ public class ATFController {
         this.scenarioContext = scenarioContext;
     }
 
-
     @ResponseBody
     @PostMapping("/runTests")
     public String runTests() {

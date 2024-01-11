@@ -12,7 +12,6 @@ import java.io.InputStream;
 import java.util.Properties;
 
 
-
 public class SqlInjectorTest {
     private WebDriver driver;
     private PageFactory pageFactory;
@@ -36,16 +35,14 @@ public class SqlInjectorTest {
 
     @Test
     public void sqlInjectionTest() {
-        setup();  // Убедимся, что setup() вызывается перед тестовым методом
-        // Логика теста
+        setup();
         userChooseThePageWhereHeWantsToStartSQLInjectorTests();
         userTriesToTypeInASQLInjectionIntoInputField("your_sql_injection_here");
         userClicksOnEnter();
-        // Ваша проверка результата теста
     }
 
     private void userClicksOnEnter() {
-        // Логика клика на Enter
+
     }
 
     private void userChooseThePageWhereHeWantsToStartSQLInjectorTests() {
@@ -61,6 +58,5 @@ public class SqlInjectorTest {
     }
 
     private void userTriesToTypeInASQLInjectionIntoInputField(String sqlInjection) {
-        // Логика ввода SQL-инъекции
     }
 }

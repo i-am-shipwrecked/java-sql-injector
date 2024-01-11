@@ -7,7 +7,6 @@ import java.util.Map;
 
 @Component
 public class ScenarioContext {
-
     private final Map<String, Object> contextMap = new HashMap<>();
 
     public void setAttribute(String key, Object value) {
