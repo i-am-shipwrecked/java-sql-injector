@@ -29,7 +29,7 @@ public class DriverManager {
 
         String browser = properties.getProperty("browser.type");
         if (browser.equalsIgnoreCase("chrome")) {
-            System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver119.exe");
+            System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver119.exe");
             driver = new ChromeDriver();
         } else if (browser.equalsIgnoreCase("firefox")) {
             System.setProperty("webdriver.gecko.driver", "src/test/resources/geckodriver.exe");

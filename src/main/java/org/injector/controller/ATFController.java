@@ -2,9 +2,11 @@ package org.injector.controller;
 
 import org.injector.utils.ScenarioContext;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.testng.TestNG;
 import org.testng.xml.XmlClass;
 import org.testng.xml.XmlSuite;
@@ -14,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@Controller
+@RestController
 public class ATFController {
     private final ScenarioContext scenarioContext;
 
@@ -25,9 +27,8 @@ public class ATFController {
 
     @ResponseBody
     @PostMapping("/runTests")
-    public String runTests() {
+    public ResponseEntity<String> runTests() {
         TestNG testNG = new TestNG();
-
         XmlSuite suite = new XmlSuite();
         suite.setName("ATFSuite");
 
@@ -35,7 +36,6 @@ public class ATFController {
         test.setName("ATFTest");
 
         XmlClass xmlClass = new XmlClass("org.injector.tests.SqlInjectorTest");
-
         test.getXmlClasses().add(xmlClass);
 
         List<XmlSuite> suites = new ArrayList<>();
@@ -44,6 +44,6 @@ public class ATFController {
 
         testNG.run();
 
-        return "Tests are running...";
+        return ResponseEntity.ok("Tests are running...");
     }
 }

@@ -5,8 +5,10 @@ import org.injector.managers.DriverManager;
 import org.injector.utils.PageFactory;
 import org.injector.utils.Waiter;
 import org.junit.After;
-import org.junit.Test;
 import org.openqa.selenium.WebDriver;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
 
 import java.io.InputStream;
 import java.util.Properties;
@@ -17,14 +19,14 @@ public class SqlInjectorTest {
     private PageFactory pageFactory;
     private Waiter waiter;
 
-    @Before
+    @BeforeTest
     public void setup() {
         driver = DriverManager.getDriver();
         pageFactory = new PageFactory(driver);
         waiter = Waiter.getInstance();
     }
 
-    @After
+    @AfterTest
     public void tearDown() {
         try {
             DriverManager.quitDriver();
@@ -32,7 +34,6 @@ public class SqlInjectorTest {
             System.out.println("браузер не закрылся");
         }
     }
-
     @Test
     public void sqlInjectionTest() {
         setup();
