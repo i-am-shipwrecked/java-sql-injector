@@ -25,7 +25,7 @@ public class ATFController {
     }
 
     @ResponseBody
-    @PostMapping("/runTests")
+    @PostMapping("/runTests/level1")
     public ResponseEntity<String> runTests() {
         TestNG testNG = new TestNG();
         XmlSuite suite = new XmlSuite();
@@ -43,6 +43,50 @@ public class ATFController {
 
         testNG.run();
 
-        return ResponseEntity.ok("Tests are running...");
+        return ResponseEntity.ok("Tests are running...1");
+    }
+
+    @ResponseBody
+    @PostMapping("/runTests/level2")
+    public ResponseEntity<String> runTestsLevelTwo() {
+        TestNG testNG = new TestNG();
+        XmlSuite suite = new XmlSuite();
+        suite.setName("ATFSuite");
+
+        XmlTest test = new XmlTest(suite);
+        test.setName("ATFTest");
+
+        XmlClass xmlClass = new XmlClass("org.injector.tests.SqlInjectorTest");
+        test.getXmlClasses().add(xmlClass);
+
+        List<XmlSuite> suites = new ArrayList<>();
+        suites.add(suite);
+        testNG.setXmlSuites(suites);
+
+        testNG.run();
+
+        return ResponseEntity.ok("Tests are running...2");
+    }
+
+    @ResponseBody
+    @PostMapping("/runTests/level3")
+    public ResponseEntity<String> runTestsLevelThree() {
+        TestNG testNG = new TestNG();
+        XmlSuite suite = new XmlSuite();
+        suite.setName("ATFSuite");
+
+        XmlTest test = new XmlTest(suite);
+        test.setName("ATFTest");
+
+        XmlClass xmlClass = new XmlClass("org.injector.tests.SqlInjectorTest");
+        test.getXmlClasses().add(xmlClass);
+
+        List<XmlSuite> suites = new ArrayList<>();
+        suites.add(suite);
+        testNG.setXmlSuites(suites);
+
+        testNG.run();
+
+        return ResponseEntity.ok("Tests are running...3");
     }
 }

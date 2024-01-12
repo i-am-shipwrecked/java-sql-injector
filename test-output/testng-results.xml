@@ -2,20 +2,20 @@
 <testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2024-01-11T22:35:32 EET" name="ATFSuite" finished-at="2024-01-11T22:35:37 EET" duration-ms="5186">
+  <suite started-at="2024-01-12T14:06:43 EET" name="ATFSuite" finished-at="2024-01-12T14:06:48 EET" duration-ms="4708">
     <groups>
     </groups>
-    <test started-at="2024-01-11T22:35:32 EET" name="ATFTest" finished-at="2024-01-11T22:35:37 EET" duration-ms="5186">
+    <test started-at="2024-01-12T14:06:43 EET" name="ATFTest" finished-at="2024-01-12T14:06:48 EET" duration-ms="4708">
       <class name="org.injector.tests.SqlInjectorTest">
-        <test-method is-config="true" signature="setup()[pri:0, instance:org.injector.tests.SqlInjectorTest@4bbb841b]" started-at="2024-01-11T22:35:32 EET" name="setup" finished-at="2024-01-11T22:35:34 EET" duration-ms="1918" status="PASS">
+        <test-method is-config="true" signature="setup()[pri:0, instance:org.injector.tests.SqlInjectorTest@525e6923]" started-at="2024-01-12T14:06:43 EET" name="setup" finished-at="2024-01-12T14:06:44 EET" duration-ms="1011" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setup -->
-        <test-method signature="sqlInjectionTest()[pri:0, instance:org.injector.tests.SqlInjectorTest@4bbb841b]" started-at="2024-01-11T22:35:34 EET" name="sqlInjectionTest" finished-at="2024-01-11T22:35:37 EET" duration-ms="3047" status="PASS">
+        <test-method signature="sqlInjectionTest()[pri:0, instance:org.injector.tests.SqlInjectorTest@525e6923]" started-at="2024-01-12T14:06:44 EET" name="sqlInjectionTest" finished-at="2024-01-12T14:06:48 EET" duration-ms="3503" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- sqlInjectionTest -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:org.injector.tests.SqlInjectorTest@4bbb841b]" started-at="2024-01-11T22:35:37 EET" name="tearDown" finished-at="2024-01-11T22:35:37 EET" duration-ms="182" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:org.injector.tests.SqlInjectorTest@525e6923]" started-at="2024-01-12T14:06:48 EET" name="tearDown" finished-at="2024-01-12T14:06:48 EET" duration-ms="193" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->

@@ -3,7 +3,7 @@ package org.injector.tests;
 import org.injector.managers.DriverManager;
 import org.injector.utils.PageFactory;
 import org.injector.utils.Waiter;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -57,5 +57,19 @@ public class SqlInjectorTest {
     }
 
     private void userTriesToTypeInASQLInjectionIntoInputField(String sqlInjection) {
+        WebElement inputElement;
+        try {
+            inputElement = driver.findElement(By.cssSelector("input"));
+        } catch (NoSuchElementException e) {
+            pageFactory.scrollDownToFindInput();
+
+            inputElement = waiter.waitElementToBePresenceOnThePageByCssSelector("input");
+
+            if (inputElement == null) {
+                throw new NoSuchElementException("Input field not found after scrolling");
+            }
+        }
+        inputElement.sendKeys(sqlInjection);
+        inputElement.sendKeys(Keys.RETURN);
     }
 }
