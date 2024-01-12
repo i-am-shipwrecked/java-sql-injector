@@ -29,7 +29,7 @@ public class ATFController {
     public ResponseEntity<String> runTests() {
         TestNG testNG = new TestNG();
         XmlSuite suite = new XmlSuite();
-        suite.setName("ATFSuite");
+        suite.setName("ATF Suite");
 
         XmlTest test = new XmlTest(suite);
         test.setName("ATFTest");
@@ -51,12 +51,12 @@ public class ATFController {
     public ResponseEntity<String> runTestsLevelTwo() {
         TestNG testNG = new TestNG();
         XmlSuite suite = new XmlSuite();
-        suite.setName("ATFSuite");
+        suite.setName("ATF Suite");
 
         XmlTest test = new XmlTest(suite);
         test.setName("ATFTest");
 
-        XmlClass xmlClass = new XmlClass("org.injector.tests.SqlInjectorTest");
+        XmlClass xmlClass = new XmlClass("org.injector.tests.SqlInjectorTestTwo");
         test.getXmlClasses().add(xmlClass);
 
         List<XmlSuite> suites = new ArrayList<>();
@@ -73,12 +73,12 @@ public class ATFController {
     public ResponseEntity<String> runTestsLevelThree() {
         TestNG testNG = new TestNG();
         XmlSuite suite = new XmlSuite();
-        suite.setName("ATFSuite");
+        suite.setName("ATF Suite");
 
         XmlTest test = new XmlTest(suite);
         test.setName("ATFTest");
 
-        XmlClass xmlClass = new XmlClass("org.injector.tests.SqlInjectorTest");
+        XmlClass xmlClass = new XmlClass("org.injector.tests.SqlInjectorTestThree");
         test.getXmlClasses().add(xmlClass);
 
         List<XmlSuite> suites = new ArrayList<>();

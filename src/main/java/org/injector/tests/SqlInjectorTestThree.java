@@ -11,8 +11,7 @@ import org.testng.annotations.Test;
 import java.io.InputStream;
 import java.util.Properties;
 
-
-public class SqlInjectorTest {
+public class SqlInjectorTestThree {
     private WebDriver driver;
     private PageFactory pageFactory;
     private Waiter waiter;
@@ -39,6 +38,7 @@ public class SqlInjectorTest {
 
         String[] injections = {
                 "' OR '1'='1'; --",
+                "; DROP TABLE users; --",
                 "' UNION SELECT table_name FROM information_schema.tables; --",
                 "' OR 'x'='x'; --",
                 "' AND 'x'='x'; --",
@@ -46,7 +46,29 @@ public class SqlInjectorTest {
                 "' AND 'a'='a'; --",
                 "' OR '1'='1'; --",
                 "' AND '1'='1'; --",
+                "' OR '123'='123'; --",
+                "' AND '123'='123'; --",
+                "' OR 'abc'='abc'; --",
+                "' AND 'abc'='abc'; --",
+                "' OR 'admin'='admin'; --",
+                "' AND 'admin'='admin'; --",
+                "' OR 1=1; --",
+                "' AND 1=1; --",
+                "' OR 1=2; --",
+                "' AND 1=2; --",
+                "' OR 'a'='a'; DROP TABLE users; --",
+                "' OR '1'='1'; DROP TABLE users; --",
+                "' UNION SELECT username, password FROM users; --",
+                "' UNION SELECT null, table_name FROM information_schema.tables; --",
+                "' UNION SELECT null, column_name FROM information_schema.columns WHERE table_name='users'; --",
+                "' UNION SELECT null, CONCAT(username, ':', password) FROM users; --",
+                "' UNION SELECT null, table_schema FROM information_schema.tables; --",
+                "' OR EXISTS(SELECT * FROM users WHERE username='admin' AND password LIKE '%pass%'); --",
+                "' OR SLEEP(5); --",
+                "' OR 1=1 INTO OUTFILE '/tmp/test.txt'; --",
+                "' OR 1=1 UNION ALL SELECT null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null FROM information_schema.tables; --"
         };
+
 
         for (int i = 0; i < 10; i++) {
             userTriesToTypeInASQLInjectionIntoInputField(injections[i % injections.length]);

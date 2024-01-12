@@ -11,8 +11,7 @@ import org.testng.annotations.Test;
 import java.io.InputStream;
 import java.util.Properties;
 
-
-public class SqlInjectorTest {
+public class SqlInjectorTestTwo {
     private WebDriver driver;
     private PageFactory pageFactory;
     private Waiter waiter;
@@ -39,6 +38,7 @@ public class SqlInjectorTest {
 
         String[] injections = {
                 "' OR '1'='1'; --",
+                "; DROP TABLE users; --",
                 "' UNION SELECT table_name FROM information_schema.tables; --",
                 "' OR 'x'='x'; --",
                 "' AND 'x'='x'; --",
@@ -46,6 +46,16 @@ public class SqlInjectorTest {
                 "' AND 'a'='a'; --",
                 "' OR '1'='1'; --",
                 "' AND '1'='1'; --",
+                "' OR '123'='123'; --",
+                "' AND '123'='123'; --",
+                "' OR 'abc'='abc'; --",
+                "' AND 'abc'='abc'; --",
+                "' OR 'admin'='admin'; --",
+                "' AND 'admin'='admin'; --",
+                "' OR 1=1; --",
+                "' AND 1=1; --",
+                "' OR 1=2; --",
+                "' AND 1=2; --",
         };
 
         for (int i = 0; i < 10; i++) {
