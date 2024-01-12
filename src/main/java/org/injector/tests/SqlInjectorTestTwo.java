@@ -2,14 +2,14 @@ package org.injector.tests;
 
 import org.injector.managers.DriverManager;
 import org.injector.utils.PageFactory;
+import org.injector.utils.ScenarioContext;
 import org.injector.utils.Waiter;
 import org.openqa.selenium.*;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import java.io.InputStream;
-import java.util.Properties;
 
 public class SqlInjectorTestTwo {
     private WebDriver driver;
@@ -28,14 +28,16 @@ public class SqlInjectorTestTwo {
         try {
             DriverManager.quitDriver();
         } catch (Exception e) {
-            System.out.println("браузер не закрылся");
+            System.out.println("-- Oops, browser issues ='( --");
         }
     }
 
+    @Parameters("appUrl")
     @Test
     public void sqlInjectionTest() {
+        String appUrl = ScenarioContext.getAppUrl();
         setup();
-        userChooseThePageWhereHeWantsToStartSQLInjectorTests();
+        userChooseThePageWhereHeWantsToStartSQLInjectorTests(appUrl);
 
         String[] injections = {
                 "' OR '1'='1'; --",
@@ -70,15 +72,7 @@ public class SqlInjectorTestTwo {
 
     }
 
-    private void userChooseThePageWhereHeWantsToStartSQLInjectorTests() {
-        Properties properties = new Properties();
-        try (InputStream input = getClass().getClassLoader().getResourceAsStream("sql_injector.properties")) {
-            properties.load(input);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        String appUrl = properties.getProperty("app.url");
+    public void userChooseThePageWhereHeWantsToStartSQLInjectorTests(String appUrl) {
         driver.get(appUrl);
     }
 

@@ -12,7 +12,7 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 
-public class SqlInjectorTest {
+public class SqlInjectorTestOne {
     private WebDriver driver;
     private PageFactory pageFactory;
     private Waiter waiter;
