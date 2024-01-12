@@ -20,4 +20,13 @@ public class ScenarioContext {
     public void clearContext() {
         contextMap.clear();
     }
+    private static String appUrl;
+
+    public void setAppUrl(String appUrl) {
+        this.appUrl = appUrl;
+    }
+
+    public static String getAppUrl() {
+        return appUrl;
+    }
 }

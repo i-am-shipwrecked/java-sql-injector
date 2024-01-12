@@ -3,9 +3,7 @@ package org.injector.controller;
 import org.injector.utils.ScenarioContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.testng.TestNG;
 import org.testng.xml.XmlClass;
 import org.testng.xml.XmlSuite;
@@ -13,11 +11,14 @@ import org.testng.xml.XmlTest;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
 
 
 @RestController
 public class ATFController {
-    private final ScenarioContext scenarioContext;
+    @Autowired
+    private ScenarioContext scenarioContext;
 
     @Autowired
     public ATFController(ScenarioContext scenarioContext) {
@@ -26,7 +27,12 @@ public class ATFController {
 
     @ResponseBody
     @PostMapping("/runTests/level1")
-    public ResponseEntity<String> runTests() {
+    public ResponseEntity<String> runTestsLevelOne(@RequestBody Map<String, String> requestBody) {
+        String appUrl = requestBody.get("url");
+        scenarioContext.setAppUrl(appUrl);
+        System.out.println(("Received appUrl: " + appUrl));
+        String urlVerification = scenarioContext.getAppUrl();
+        System.out.println("scenario context: i got this url " + urlVerification);
         TestNG testNG = new TestNG();
         XmlSuite suite = new XmlSuite();
         suite.setName("ATF Suite");
@@ -45,6 +51,8 @@ public class ATFController {
 
         return ResponseEntity.ok("Tests are running...1");
     }
+
+
 
     @ResponseBody
     @PostMapping("/runTests/level2")
@@ -89,4 +97,6 @@ public class ATFController {
 
         return ResponseEntity.ok("Tests are running...3");
     }
+
+
 }

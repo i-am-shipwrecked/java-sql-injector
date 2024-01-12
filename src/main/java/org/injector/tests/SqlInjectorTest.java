@@ -1,28 +1,32 @@
 package org.injector.tests;
 
+import org.injector.utils.ScenarioContext;
 import org.injector.managers.DriverManager;
 import org.injector.utils.PageFactory;
 import org.injector.utils.Waiter;
 import org.openqa.selenium.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import java.io.InputStream;
-import java.util.Properties;
 
-
-public class SqlInjectorTest {
+public class SqlInjectorTest  {
     private WebDriver driver;
     private PageFactory pageFactory;
     private Waiter waiter;
+@Autowired
+    private ScenarioContext scenarioContext;
 
     @BeforeTest
     public void setup() {
+        System.out.println("trying to setup browser");
         driver = DriverManager.getDriver();
         pageFactory = new PageFactory(driver);
         waiter = Waiter.getInstance();
-    }
+        System.out.println("browser is setuped");
+        }
 
     @AfterTest
     public void tearDown() {
@@ -32,11 +36,13 @@ public class SqlInjectorTest {
             System.out.println("браузер не закрылся");
         }
     }
+    @Parameters("appUrl")
     @Test
     public void sqlInjectionTest() {
+        System.out.println("111111111111111111111111111111111111111111111111111111111");
+        String appUrl = ScenarioContext.getAppUrl();
         setup();
-        userChooseThePageWhereHeWantsToStartSQLInjectorTests();
-
+        userChooseThePageWhereHeWantsToStartSQLInjectorTests(appUrl);
         String[] injections = {
                 "' OR '1'='1'; --",
                 "' UNION SELECT table_name FROM information_schema.tables; --",
@@ -59,17 +65,13 @@ public class SqlInjectorTest {
 
     }
 
-    private void userChooseThePageWhereHeWantsToStartSQLInjectorTests() {
-        Properties properties = new Properties();
-        try (InputStream input = getClass().getClassLoader().getResourceAsStream("sql_injector.properties")) {
-            properties.load(input);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        String appUrl = properties.getProperty("app.url");
+    public void userChooseThePageWhereHeWantsToStartSQLInjectorTests(String appUrl) {
         driver.get(appUrl);
     }
+
+
+
+
 
     private void userTriesToTypeInASQLInjectionIntoInputField(String sqlInjection) {
         WebElement inputElement;
