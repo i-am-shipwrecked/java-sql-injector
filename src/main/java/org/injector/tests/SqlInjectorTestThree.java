@@ -31,6 +31,7 @@ public class SqlInjectorTestThree {
             System.out.println("браузер не закрылся");
         }
     }
+
     @Test
     public void sqlInjectionTest() {
         setup();

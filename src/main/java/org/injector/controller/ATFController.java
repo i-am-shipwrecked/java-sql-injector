@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.Map;
 
 
-
 @RestController
 public class ATFController {
     @Autowired
@@ -30,9 +29,6 @@ public class ATFController {
     public ResponseEntity<String> runTestsLevelOne(@RequestBody Map<String, String> requestBody) {
         String appUrl = requestBody.get("url");
         scenarioContext.setAppUrl(appUrl);
-        System.out.println(("Received appUrl: " + appUrl));
-        String urlVerification = scenarioContext.getAppUrl();
-        System.out.println("scenario context: i got this url " + urlVerification);
         TestNG testNG = new TestNG();
         XmlSuite suite = new XmlSuite();
         suite.setName("ATF Suite");
@@ -51,7 +47,6 @@ public class ATFController {
 
         return ResponseEntity.ok("Tests are running...1");
     }
-
 
 
     @ResponseBody

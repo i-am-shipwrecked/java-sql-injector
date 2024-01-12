@@ -12,34 +12,32 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 
-public class SqlInjectorTest  {
+public class SqlInjectorTest {
     private WebDriver driver;
     private PageFactory pageFactory;
     private Waiter waiter;
-@Autowired
+    @Autowired
     private ScenarioContext scenarioContext;
 
     @BeforeTest
     public void setup() {
-        System.out.println("trying to setup browser");
         driver = DriverManager.getDriver();
         pageFactory = new PageFactory(driver);
         waiter = Waiter.getInstance();
-        System.out.println("browser is setuped");
-        }
+    }
 
     @AfterTest
     public void tearDown() {
         try {
             DriverManager.quitDriver();
         } catch (Exception e) {
-            System.out.println("браузер не закрылся");
+            System.out.println("-- Oops, browser issues ='( --");
         }
     }
+
     @Parameters("appUrl")
     @Test
     public void sqlInjectionTest() {
-        System.out.println("111111111111111111111111111111111111111111111111111111111");
         String appUrl = ScenarioContext.getAppUrl();
         setup();
         userChooseThePageWhereHeWantsToStartSQLInjectorTests(appUrl);
@@ -68,9 +66,6 @@ public class SqlInjectorTest  {
     public void userChooseThePageWhereHeWantsToStartSQLInjectorTests(String appUrl) {
         driver.get(appUrl);
     }
-
-
-
 
 
     private void userTriesToTypeInASQLInjectionIntoInputField(String sqlInjection) {

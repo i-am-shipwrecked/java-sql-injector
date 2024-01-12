@@ -20,6 +20,7 @@ public class ScenarioContext {
     public void clearContext() {
         contextMap.clear();
     }
+
     private static String appUrl;
 
     public void setAppUrl(String appUrl) {
