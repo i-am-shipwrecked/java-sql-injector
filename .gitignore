@@ -7,3 +7,4 @@ logs/
 /target/
 *.bak
 test-output/
+build/
