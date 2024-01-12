@@ -1,5 +1,7 @@
 package org.injector.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.injector.utils.ScenarioContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,9 +17,11 @@ import java.util.Map;
 
 
 @RestController
+@Tag(name = "Tests Controller", description = "API")
 public class ATFController {
     @Autowired
     private ScenarioContext scenarioContext;
+
     @Autowired
     public ATFController(ScenarioContext scenarioContext) {
         this.scenarioContext = scenarioContext;
@@ -25,6 +29,7 @@ public class ATFController {
 
     @ResponseBody
     @PostMapping("/runTests/level1")
+    @Operation(summary = "Weak attack")
     public ResponseEntity<String> runTestsLevelOne(@RequestBody Map<String, String> requestBody) {
         String appUrl = requestBody.get("url");
         scenarioContext.setAppUrl(appUrl);
@@ -50,6 +55,7 @@ public class ATFController {
 
     @ResponseBody
     @PostMapping("/runTests/level2")
+    @Operation(summary = "Medium attack")
     public ResponseEntity<String> runTestsLevelTwo(@RequestBody Map<String, String> requestBody) {
         String appUrl = requestBody.get("url");
         scenarioContext.setAppUrl(appUrl);
@@ -74,6 +80,7 @@ public class ATFController {
 
     @ResponseBody
     @PostMapping("/runTests/level3")
+    @Operation(summary = "Strong attack")
     public ResponseEntity<String> runTestsLevelThree(@RequestBody Map<String, String> requestBody) {
         String appUrl = requestBody.get("url");
         scenarioContext.setAppUrl(appUrl);
@@ -95,6 +102,4 @@ public class ATFController {
 
         return ResponseEntity.ok("Sql injection with HARD load is - DONE");
     }
-
-
 }
