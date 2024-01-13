@@ -52,8 +52,9 @@ public class SqlInjectorTestOne {
                 "' AND '1'='1'; --",
         };
 
-        for (int i = 0; i < 10; i++) {
-            userTriesToTypeInASQLInjectionIntoInputField(injections[i % injections.length]);
+        for (int i = 0; i < injections.length; i++) {
+            System.out.println("Injecting: " + injections[i]);
+            userTriesToTypeInASQLInjectionIntoInputField(injections[i]);
         }
 
         userClicksOnEnter();
@@ -81,6 +82,7 @@ public class SqlInjectorTestOne {
                 throw new NoSuchElementException("Input field not found after scrolling");
             }
         }
+        inputElement.clear();
         inputElement.sendKeys(sqlInjection);
         inputElement.sendKeys(Keys.RETURN);
     }
