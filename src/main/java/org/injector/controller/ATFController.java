@@ -56,7 +56,7 @@ public class ATFController {
         testNG.run();
 
         Injection injection = new Injection();
-        injection.setUrl(appUrl); // appUrl уже является строкой
+        injection.setUrl(appUrl);
         injection.setIpAddress(request.getRemoteAddr());
         injectionRepository.save(injection);
 
@@ -86,6 +86,7 @@ public class ATFController {
         testNG.setXmlSuites(suites);
 
         testNG.run();
+
 
         return ResponseEntity.ok("Sql injection with MID load is - DONE");
     }
