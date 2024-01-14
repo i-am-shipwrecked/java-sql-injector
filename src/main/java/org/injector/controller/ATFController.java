@@ -14,7 +14,6 @@ import org.testng.xml.XmlClass;
 import org.testng.xml.XmlSuite;
 import org.testng.xml.XmlTest;
 
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
@@ -57,7 +56,7 @@ public class ATFController {
         testNG.run();
 
         Injection injection = new Injection();
-        injection.setUrl(new URI(appUrl));
+        injection.setUrl(appUrl); // appUrl уже является строкой
         injection.setIpAddress(request.getRemoteAddr());
         injectionRepository.save(injection);
 

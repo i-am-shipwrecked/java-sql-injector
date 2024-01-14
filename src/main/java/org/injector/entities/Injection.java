@@ -2,8 +2,8 @@ package org.injector.entities;
 
 import jakarta.persistence.*;
 
-import java.net.URI;
 import java.util.UUID;
+
 @Entity
 @Table(name = "INJECTIONS")
 public class Injection {
@@ -12,11 +12,11 @@ public class Injection {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
     @Column
-    private URI url;
+    private String url;
     @Column
     private String ipAddress;
 
-    public Injection(UUID id, URI url) {
+    public Injection(UUID id, String url) {
         this.id = id;
         this.url = url;
     }
@@ -32,11 +32,11 @@ public class Injection {
         this.id = id;
     }
 
-    public URI getUrl() {
+    public String getUrl() {
         return url;
     }
 
-    public void setUrl(URI url) {
+    public void setUrl(String url) {
         this.url = url;
     }
 
