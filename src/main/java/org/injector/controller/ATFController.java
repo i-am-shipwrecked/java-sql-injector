@@ -2,6 +2,9 @@ package org.injector.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
+import org.injector.entities.Injection;
+import org.injector.repositories.InjectionRepository;
 import org.injector.utils.ScenarioContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +14,7 @@ import org.testng.xml.XmlClass;
 import org.testng.xml.XmlSuite;
 import org.testng.xml.XmlTest;
 
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +25,8 @@ import java.util.Map;
 public class ATFController {
     @Autowired
     private ScenarioContext scenarioContext;
+    @Autowired
+    private InjectionRepository injectionRepository;
 
     @Autowired
     public ATFController(ScenarioContext scenarioContext) {
@@ -30,7 +36,7 @@ public class ATFController {
     @ResponseBody
     @PostMapping("/runTests/level1")
     @Operation(summary = "Weak attack")
-    public ResponseEntity<String> runTestsLevelOne(@RequestBody Map<String, String> requestBody) {
+    public ResponseEntity<String> runTestsLevelOne(@RequestBody Map<String, String> requestBody, HttpServletRequest request) throws URISyntaxException {
         String appUrl = requestBody.get("url");
         scenarioContext.setAppUrl(appUrl);
         TestNG testNG = new TestNG();
@@ -48,6 +54,12 @@ public class ATFController {
         testNG.setXmlSuites(suites);
 
         testNG.run();
+
+        Injection injection = new Injection();
+        injection.setUrl(appUrl); // appUrl уже является строкой
+        injection.setIpAddress(request.getRemoteAddr());
+        injectionRepository.save(injection);
+
 
         return ResponseEntity.ok("Sql injection with EASY load is - DONE");
     }

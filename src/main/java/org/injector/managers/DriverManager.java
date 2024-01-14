@@ -21,7 +21,7 @@ public class DriverManager {
 
     private static void initializeDriver() {
         Properties properties = new Properties();
-        try (InputStream input = DriverManager.class.getClassLoader().getResourceAsStream("sql_injector.properties")) {
+        try (InputStream input = DriverManager.class.getClassLoader().getResourceAsStream("application.properties")) {
             properties.load(input);
         } catch (IOException e) {
             e.printStackTrace();

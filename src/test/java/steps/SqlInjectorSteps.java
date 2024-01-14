@@ -39,7 +39,7 @@ public class SqlInjectorSteps {
         }
     }
 
-    @Given("User is on the page, which you can insert into sql_injector.properties")
+    @Given("User is on the page, which you can insert into application.properties")
     public void userIsOnThePageWhichYouCanInsertIntoSql_injectorProperties() {
     }
 
