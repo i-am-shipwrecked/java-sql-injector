@@ -11,3 +11,43 @@ mvn test
 ```
 
 ![SQL-injection-needle](https://github.com/i-am-shipwrecked/java-sql-injector/assets/80786579/4443bfaa-8802-49ee-8df6-85291dfb7a1e)
+
+# API Endpoints:
+---
+***POST*** `http://localhost:8080/runTests/level1`
+
+_Request body:_
+```json
+
+  {
+    "url": "https://www.example.com/"
+  }
+
+```
+* Running tests with 10 SQL injections.
+---
+***POST*** `http://localhost:8080/runTests/level2`
+
+_Request body:_
+```json
+
+  {
+    "url": "https://www.example.com/"
+  }
+
+```
+* Running tests with 20 SQL injections.
+---
+
+***POST*** `http://localhost:8080/runTests/level3`
+
+_Request body:_
+```json
+
+  {
+    "url": "https://www.example.com/"
+  }
+
+```
+* Running tests with 30 SQL injections.
+---
