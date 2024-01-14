@@ -68,7 +68,7 @@ public class ATFController {
     @ResponseBody
     @PostMapping("/runTests/level2")
     @Operation(summary = "Medium attack")
-    public ResponseEntity<String> runTestsLevelTwo(@RequestBody Map<String, String> requestBody) {
+    public ResponseEntity<String> runTestsLevelTwo(@RequestBody Map<String, String> requestBody, HttpServletRequest request) {
         String appUrl = requestBody.get("url");
         scenarioContext.setAppUrl(appUrl);
         TestNG testNG = new TestNG();
@@ -87,6 +87,11 @@ public class ATFController {
 
         testNG.run();
 
+        Injection injection = new Injection();
+        injection.setUrl(appUrl);
+        injection.setIpAddress(request.getRemoteAddr());
+        injectionRepository.save(injection);
+
 
         return ResponseEntity.ok("Sql injection with MID load is - DONE");
     }
@@ -94,7 +99,7 @@ public class ATFController {
     @ResponseBody
     @PostMapping("/runTests/level3")
     @Operation(summary = "Strong attack")
-    public ResponseEntity<String> runTestsLevelThree(@RequestBody Map<String, String> requestBody) {
+    public ResponseEntity<String> runTestsLevelThree(@RequestBody Map<String, String> requestBody, HttpServletRequest request) {
         String appUrl = requestBody.get("url");
         scenarioContext.setAppUrl(appUrl);
         TestNG testNG = new TestNG();
@@ -112,6 +117,11 @@ public class ATFController {
         testNG.setXmlSuites(suites);
 
         testNG.run();
+
+        Injection injection = new Injection();
+        injection.setUrl(appUrl);
+        injection.setIpAddress(request.getRemoteAddr());
+        injectionRepository.save(injection);
 
         return ResponseEntity.ok("Sql injection with HARD load is - DONE");
     }
