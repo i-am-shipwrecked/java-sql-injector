@@ -40,6 +40,7 @@ public class SqlInjectorTestOne {
     public void sqlInjectionTest() {
         String appUrl = ScenarioContext.getAppUrl();
         setup();
+        drawWprits();
         userChooseThePageWhereHeWantsToStartSQLInjectorTests(appUrl);
         String[] injections = {
                 "' OR '1'='1'; --",
@@ -85,5 +86,25 @@ public class SqlInjectorTestOne {
         inputElement.clear();
         inputElement.sendKeys(sqlInjection);
         inputElement.sendKeys(Keys.RETURN);
+    }
+
+    public void drawWprits() {
+        System.out.println
+                ("          ______\n" +
+                "\t     |______|\n" +
+                "\t        ||\n" +
+                "\t        ||\n" +
+                "         ___||___\n" +
+                "        |         |\n" +
+                "        |         |\n" +
+                "        |   SQL   |\n" +
+                "        |         |\n" +
+                "        |_________|\n" +
+                "          \\     /\n" +
+                "           \\___/\n" +
+                "\t         |\n" +
+                "\t         |\n" +
+                "\t         |\n" +
+                "\t         |");
     }
 }
