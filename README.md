@@ -55,6 +55,8 @@ Ensure that the database is successfully started and ready for use.
 
 # API Endpoints:
 ---
+You can access detailed documentation using Swagger following this link: `http://localhost:8080/swagger-ui/index.html`
+
 ***POST*** `http://localhost:8080/runTests/level1`
 
 _Request body:_
@@ -129,3 +131,24 @@ _Response status:_
 ```
 * Running tests with 30 SQL injections.
 ---
+
+# Automated Testing Framework with Selenium
+
+This project is designed to offer a robust Automated Testing Framework (ATF) that seamlessly integrates Cucumber and Serenity, providing an efficient and readable solution for automated tests. It facilitates the incorporation of behavior-driven development (BDD) practices into your testing process.
+
+## Key Features
+
+1. **Cucumber Integration:** Leverage Cucumber for expressive BDD-style scenarios in plain text.
+
+2. **Serenity Reporting:** Utilize detailed and user-friendly Serenity HTML reports for clear test result visualization.
+
+3. **Flexible Configuration:** Easily configure test runs with dynamic properties and links in the `sql_injector.properties` file.
+
+4. **Runners:** Significance of Three Runners: In this project, we utilize three distinct runners - one for Serenity, one for Spring, and another for Cucumber - to cater to various testing needs.
+
+## Getting Started
+
+### Clone Repository
+
+```bash
+git clone https://github.com/your/repository.git
