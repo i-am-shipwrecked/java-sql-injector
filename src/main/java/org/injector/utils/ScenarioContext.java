@@ -22,6 +22,15 @@ public class ScenarioContext {
     }
 
     private static String appUrl;
+    private static String tableName;
+
+    public static String getTableName() {
+        return tableName;
+    }
+
+    public void setTableName(String tableName) {
+        this.tableName = tableName;
+    }
 
     public void setAppUrl(String appUrl) {
         this.appUrl = appUrl;

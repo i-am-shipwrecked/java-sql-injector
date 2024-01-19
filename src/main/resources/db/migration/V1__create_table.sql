@@ -1,0 +1,6 @@
+CREATE TABLE INJECTIONS (
+    id UUID PRIMARY KEY,
+    url VARCHAR(255),
+    ipAddress VARCHAR(255),
+    tableName VARCHAR(255)
+);

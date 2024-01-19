@@ -15,6 +15,8 @@ public class Injection {
     private String url;
     @Column
     private String ipAddress;
+    @Column
+    private String tableName;
 
     public Injection(UUID id, String url) {
         this.id = id;
@@ -46,5 +48,13 @@ public class Injection {
 
     public void setIpAddress(String ipAddress) {
         this.ipAddress = ipAddress;
+    }
+
+    public String getTableName() {
+        return tableName;
+    }
+
+    public void setTableName(String tableName) {
+        this.tableName = tableName;
     }
 }
