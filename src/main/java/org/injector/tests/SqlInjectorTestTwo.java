@@ -32,38 +32,20 @@ public class SqlInjectorTestTwo {
         }
     }
 
-    @Parameters("appUrl")
+    @Parameters({"tableName", "appUrl"})
     @Test
     public void sqlInjectionTest() {
         String appUrl = ScenarioContext.getAppUrl();
-        setup();
-        userChooseThePageWhereHeWantsToStartSQLInjectorTests(appUrl);
+        String tableName = ScenarioContext.getTableName();
 
-        String[] injections = {
-                "' OR '1'='1'; --",
-                "; DROP TABLE users; --",
-                "' UNION SELECT table_name FROM information_schema.tables; --",
-                "' OR 'x'='x'; --",
-                "' AND 'x'='x'; --",
-                "' OR 'a'='a'; --",
-                "' AND 'a'='a'; --",
-                "' OR '1'='1'; --",
-                "' AND '1'='1'; --",
-                "' OR '123'='123'; --",
-                "' AND '123'='123'; --",
-                "' OR 'abc'='abc'; --",
-                "' AND 'abc'='abc'; --",
-                "' OR 'admin'='admin'; --",
-                "' AND 'admin'='admin'; --",
-                "' OR 1=1; --",
-                "' AND 1=1; --",
-                "' OR 1=2; --",
-                "' AND 1=2; --",
-        };
+        setup();
+
+        userChooseThePageWhereHeWantsToStartSQLInjectorTests(appUrl);
+        String[] injections = generateInjections(tableName);
 
         for (int i = 0; i < injections.length; i++) {
             System.out.println("Injecting: " + injections[i]);
-            userTriesToTypeInASQLInjectionIntoInputField(injections[i % injections.length]);
+            userTriesToTypeInASQLInjectionIntoInputField(injections[i]);
         }
 
         userClicksOnEnter();
@@ -94,4 +76,30 @@ public class SqlInjectorTestTwo {
         inputElement.sendKeys(sqlInjection);
         inputElement.sendKeys(Keys.RETURN);
     }
+
+    private String[] generateInjections(String tableName) {
+        return new String[]{
+                String.format("SELECT * FROM %s;", tableName),
+                String.format("DELETE FROM %s;", tableName),
+                String.format("UPDATE %s SET column1='new_value' WHERE condition;", tableName),
+                String.format("INSERT INTO %s (column1, column2) VALUES ('value1', 'value2');", tableName),
+                String.format("DROP TABLE %s;", tableName),
+                String.format("SELECT * FROM %s WHERE column1='some_value' OR 1=1; --", tableName),
+                String.format("UNION SELECT column1, column2 FROM %s;", tableName),
+                String.format("ALTER TABLE %s ADD COLUMN new_column INT;", tableName),
+                String.format("SELECT * FROM %s; DROP TABLE %s; --", tableName, tableName),
+                String.format("SELECT * FROM %s; EXEC sp_configure 'show advanced options', 1; RECONFIGURE; --", tableName),
+                String.format("SELECT * FROM %s WHERE column1 = 'value' OR '1' = '1';", tableName),
+                String.format("INSERT INTO %s (column1) VALUES ('malicious_value'); --", tableName),
+                String.format("UPDATE %s SET column1 = 'malicious_value' WHERE condition; --", tableName),
+                String.format("DELETE FROM %s WHERE column1 = 'value' OR '1' = '1';", tableName),
+                String.format("SELECT * FROM %s WHERE column1 = 'value' UNION SELECT 'injected_value'; --", tableName),
+                String.format("CREATE TABLE malicious_table AS SELECT * FROM %s;", tableName),
+                String.format("SELECT * FROM %s; DROP PROCEDURE malicious_procedure; --", tableName),
+                String.format("EXEC('SELECT * FROM %s'); --", tableName),
+                String.format("EXEC xp_cmdshell('command'); --", tableName),
+                String.format("DECLARE @sql NVARCHAR(MAX); SET @sql = N'SELECT * FROM %s;'; EXEC sp_executesql @sql;", tableName)
+        };
+    }
+
 }

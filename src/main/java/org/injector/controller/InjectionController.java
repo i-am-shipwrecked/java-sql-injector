@@ -23,14 +23,14 @@ import java.util.Map;
 
 @RestController
 @Tag(name = "Tests Controller", description = "API")
-public class ATFController {
+public class InjectionController {
     @Autowired
     private ScenarioContext scenarioContext;
     @Autowired
     private InjectionRepository injectionRepository;
 
     @Autowired
-    public ATFController(ScenarioContext scenarioContext) {
+    public InjectionController(ScenarioContext scenarioContext) {
         this.scenarioContext = scenarioContext;
     }
 
@@ -79,7 +79,10 @@ public class ATFController {
     @Operation(summary = "Medium attack")
     public ResponseEntity<String> runTestsLevelTwo(@RequestBody Map<String, String> requestBody, HttpServletRequest request) {
         String appUrl = requestBody.get("url");
+        String tableName = requestBody.get("tableName");
+
         scenarioContext.setAppUrl(appUrl);
+        scenarioContext.setTableName(tableName);
         TestNG testNG = new TestNG();
         XmlSuite suite = new XmlSuite();
         suite.setName("ATF Suite");
@@ -90,6 +93,11 @@ public class ATFController {
         XmlClass xmlClass = new XmlClass("org.injector.tests.SqlInjectorTestTwo");
         test.getXmlClasses().add(xmlClass);
 
+        Map<String, String> parameters = new HashMap<>();
+        parameters.put("tableName", tableName);
+        parameters.put("appUrl", appUrl);
+        test.setParameters(parameters);
+
         List<XmlSuite> suites = new ArrayList<>();
         suites.add(suite);
         testNG.setXmlSuites(suites);
@@ -99,8 +107,8 @@ public class ATFController {
         Injection injection = new Injection();
         injection.setUrl(appUrl);
         injection.setIpAddress(request.getRemoteAddr());
+        injection.setTableName(tableName);
         injectionRepository.save(injection);
-
 
         return ResponseEntity.ok("Sql injection with MID load is - DONE");
     }
@@ -110,7 +118,10 @@ public class ATFController {
     @Operation(summary = "Strong attack")
     public ResponseEntity<String> runTestsLevelThree(@RequestBody Map<String, String> requestBody, HttpServletRequest request) {
         String appUrl = requestBody.get("url");
+        String tableName = requestBody.get("tableName");
+
         scenarioContext.setAppUrl(appUrl);
+        scenarioContext.setTableName(tableName);
         TestNG testNG = new TestNG();
         XmlSuite suite = new XmlSuite();
         suite.setName("ATF Suite");
@@ -121,6 +132,11 @@ public class ATFController {
         XmlClass xmlClass = new XmlClass("org.injector.tests.SqlInjectorTestThree");
         test.getXmlClasses().add(xmlClass);
 
+        Map<String, String> parameters = new HashMap<>();
+        parameters.put("tableName", tableName);
+        parameters.put("appUrl", appUrl);
+        test.setParameters(parameters);
+
         List<XmlSuite> suites = new ArrayList<>();
         suites.add(suite);
         testNG.setXmlSuites(suites);
@@ -130,6 +146,7 @@ public class ATFController {
         Injection injection = new Injection();
         injection.setUrl(appUrl);
         injection.setIpAddress(request.getRemoteAddr());
+        injection.setTableName(tableName);
         injectionRepository.save(injection);
 
         return ResponseEntity.ok("Sql injection with HARD load is - DONE");
